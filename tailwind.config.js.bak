@@ -1,0 +1,51 @@
+/** @type {import('tailwindcss').Config} */
+export default {
+  content: [
+    "./index.html",
+    "./src/**/*.{js,ts,jsx,tsx}",
+  ],
+  theme: {
+    extend: {
+      colors: {
+        luxury: {
+          bg: "#FFFFFF",
+          card: "#F8FAFC",
+          secondary: "#F5F5F5",
+          highlight: "#EEF2FF",
+          border: "#E2E8F0",
+          blue: "#2563EB",
+          indigo: "#4F46E5",
+          cyan: "#06B6D4",
+          black: "#000000"
+        }
+      },
+      fontFamily: {
+        space: ["'Space Grotesk'", "sans-serif"],
+        satoshi: ["Satoshi", "sans-serif"],
+        inter: ["Inter", "sans-serif"],
+        poppins: ["Poppins", "sans-serif"],
+        mono: ["'JetBrains Mono'", "monospace"],
+      },
+      boxShadow: {
+        luxury: "0 4px 30px rgba(0, 0, 0, 0.03)",
+        glass: "0 8px 32px 0 rgba(31, 38, 135, 0.04)",
+      },
+      animation: {
+        'gradient-shift': 'gradientShift 8s ease infinite',
+        'float': 'float 6s ease-in-out infinite',
+        'spin-slow': 'spin 15s linear infinite',
+      },
+      keyframes: {
+        gradientShift: {
+          '0%, 100%': { 'background-position': '0% 50%' },
+          '50%': { 'background-position': '100% 50%' },
+        },
+        float: {
+          '0%, 100%': { transform: 'translateY(0px)' },
+          '50%': { transform: 'translateY(-15px)' },
+        }
+      }
+    },
+  },
+  plugins: [],
+}
