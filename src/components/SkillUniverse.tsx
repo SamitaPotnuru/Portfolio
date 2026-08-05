@@ -2,20 +2,11 @@ import React, { useState, useMemo } from 'react';
 
 interface Skill {
   name: string;
-  category: 'programming' | 'frontend' | 'ui' | 'backend' | 'database' | 'tools' | 'swe' | 'ai';
+  category: 'programming' | 'frontend' | 'ui' | 'backend' | 'database' | 'tools' | 'swe' | 'ai' | 'testing' | 'expertise';
   level: number;
 }
 
 const skillsData: Skill[] = [
-  // Programming Languages
-  { name: 'JavaScript (ES6+)', category: 'programming', level: 90 },
-  { name: 'TypeScript', category: 'programming', level: 90 },
-  { name: 'Python', category: 'programming', level: 92 },
-  { name: 'Java', category: 'programming', level: 85 },
-  { name: 'HTML5', category: 'programming', level: 90 },
-  { name: 'CSS3', category: 'programming', level: 88 },
-  { name: 'C#', category: 'programming', level: 80 },
-
   // Frontend Development
   { name: 'React.js', category: 'frontend', level: 92 },
   { name: 'TypeScript', category: 'frontend', level: 90 },
@@ -85,10 +76,26 @@ const skillsData: Skill[] = [
   { name: 'Windsurf', category: 'ai', level: 85 },
   { name: 'Codex', category: 'ai', level: 85 },
   { name: 'Claude', category: 'ai', level: 90 },
+
+  // Testing & Quality
+  { name: 'Writing unit tests', category: 'testing', level: 85 },
+  { name: 'Integration tests', category: 'testing', level: 85 },
+  { name: 'Maintaining technical documentation', category: 'testing', level: 90 },
+  { name: 'Log analysis', category: 'testing', level: 88 },
+  { name: 'Performance monitoring', category: 'testing', level: 85 },
+  { name: 'Bug fixing', category: 'testing', level: 90 },
+
+  // Expertise
+  { name: 'Problem Solving', category: 'expertise', level: 95 },
+  { name: 'Software Engineering', category: 'expertise', level: 90 },
+  { name: 'Team Collaboration', category: 'expertise', level: 92 },
+  { name: 'Communication', category: 'expertise', level: 90 },
+  { name: 'Leadership', category: 'expertise', level: 88 },
+  { name: 'Adaptability', category: 'expertise', level: 90 },
+  { name: 'Attention to Detail', category: 'expertise', level: 92 },
 ];
 
 const categories = [
-  { id: 'programming', label: 'Programming' },
   { id: 'frontend', label: 'Frontend' },
   { id: 'ui', label: 'UI & Styling' },
   { id: 'backend', label: 'Backend' },
@@ -96,10 +103,12 @@ const categories = [
   { id: 'tools', label: 'Tools' },
   { id: 'swe', label: 'Software Eng.' },
   { id: 'ai', label: 'AI & ML' },
+  { id: 'testing', label: 'Testing & Quality' },
+  { id: 'expertise', label: 'Expertise' },
 ];
 
 export const SkillUniverse: React.FC = () => {
-  const [selectedCategory, setSelectedCategory] = useState<string>('programming');
+  const [selectedCategory, setSelectedCategory] = useState<string>('frontend');
 
   const filteredSkills = useMemo(() => {
     return skillsData.filter(s => s.category === selectedCategory);

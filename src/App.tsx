@@ -2,20 +2,18 @@ import { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import Lenis from 'lenis';
 import {
-  Mail,
-  MapPin,
-  ArrowUpRight,
-  Phone
+  ArrowUpRight
 } from 'lucide-react';
 
-import { Preloader } from './components/Preloader';
 import { SkillUniverse } from './components/SkillUniverse';
 
 
 function App() {
-  const [loading, setLoading] = useState(true);
+  const loading = false;
   const [activeSection, setActiveSection] = useState('about');
   const [mousePos, setMousePos] = useState({ x: 0, y: 0 });
+  const [hoveredItem, setHoveredItem] = useState<string | null>(null);
+  const [selectedItem, setSelectedItem] = useState<string | null>(null);
 
   // Initialize Lenis Smooth Scroll
   useEffect(() => {
@@ -49,7 +47,7 @@ function App() {
   // Scroll spy to active navigation indicators
   useEffect(() => {
     if (loading) return;
-    const sections = ['about', 'internships', 'projects', 'skills', 'contact'];
+    const sections = ['about', 'education', 'internships', 'projects', 'skills', 'competitions', 'responsibility', 'achievements'];
     
     const handleScroll = () => {
       const scrollPosition = window.scrollY + 300;
@@ -73,8 +71,6 @@ function App() {
 
   return (
     <>
-      <Preloader onComplete={() => setLoading(false)} />
-
       <AnimatePresence>
         {!loading && (
           <motion.div
@@ -104,7 +100,7 @@ function App() {
               <div className="lg:flex lg:justify-between lg:gap-8">
                 
                 {/* ───────────────── LEFT SIDEBAR (STICKY HEADER) ───────────────── */}
-                <header className="lg:sticky lg:top-0 lg:flex lg:max-h-screen lg:w-[42%] lg:flex-col lg:justify-center lg:gap-10 lg:py-24">
+                <header className="lg:sticky lg:top-0 lg:flex lg:max-h-screen lg:w-[42%] lg:flex-col lg:justify-center lg:gap-6 lg:py-12">
                   <div className="flex flex-col text-left">
                     {/* Title with hovering gradient text effect */}
                     <h1 className="text-6xl font-black tracking-tight text-slate-200 sm:text-7xl font-space">
@@ -116,18 +112,18 @@ function App() {
                       Full Stack Software Engineer
                     </h2>
                     <p className="mt-8 max-w-lg leading-relaxed text-slate-400 text-base md:text-lg text-justify">
-                      I am a Full Stack Software Developer specializing in building high-performance web applications, engineering scalable backend systems, and deploying intelligent cloud solutions.
+                      I am a Software Developer, crafting high‑performance web applications, architecting scalable backend systems, and deploying intelligent cloud solutions that drive innovation and efficiency.
                     </p>
 
                     {/* Navigation Menu Links with glowing teal indicators for active state */}
                     <nav className="nav hidden lg:block" aria-label="In-page jump links">
-                      <ul className="mt-20 w-max font-space">
-                        {['about', 'internships', 'projects', 'skills', 'achievements', 'contact'].map((section) => {
+                      <ul className="mt-10 w-max font-space">
+                        {['about', 'education', 'internships', 'projects', 'skills', 'competitions', 'responsibility', 'achievements'].map((section) => {
                           const isActive = activeSection === section;
                           return (
                             <li key={section}>
                               <a
-                                className={`group flex items-center py-4 ${isActive ? 'active' : ''}`}
+                                className={`group flex items-center py-2.5 ${isActive ? 'active' : ''}`}
                                 href={`#${section}`}
                                 onClick={(e) => {
                                   e.preventDefault();
@@ -166,6 +162,23 @@ function App() {
                     >
                       <svg className="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
                         <path d="M19 0h-14c-2.761 0-5 2.239-5 5v14c0 2.761 2.239 5 5 5h14c2.762 0 5-2.239 5-5v-14c0-2.761-2.238-5-5-5zm-11 19h-3v-11h3v11zm-1.5-12.268c-.966 0-1.75-.79-1.75-1.764s.784-1.764 1.75-1.764 1.75.79 1.75 1.764-.783 1.764-1.75 1.764zm13.5 12.268h-3v-5.604c0-3.368-4-3.113-4 0v5.604h-3v-11h3v1.765c1.396-2.586 7-2.777 7 2.476v6.759z"/>
+                      </svg>
+                    </a>
+
+                    {/* Resume PDF */}
+                    <a
+                      href="/POTNURUSAMITA.pdf"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      aria-label="Resume PDF"
+                      className="w-12 h-12 rounded-full bg-slate-800/40 border border-slate-700/50 flex items-center justify-center text-slate-400 hover:text-teal-400 hover:border-teal-400/60 hover:bg-slate-800 transition-all duration-300 transform hover:-translate-y-1 hover:scale-110 shadow-md hover:shadow-[0_0_15px_rgba(45,212,191,0.25)]"
+                    >
+                      <svg className="w-5 h-5" fill="none" stroke="currentColor" strokeWidth="2.2" viewBox="0 0 24 24" strokeLinecap="round" strokeLinejoin="round">
+                        <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path>
+                        <polyline points="14 2 14 8 20 8"></polyline>
+                        <line x1="16" y1="13" x2="8" y2="13"></line>
+                        <line x1="16" y1="17" x2="8" y2="17"></line>
+                        <polyline points="10 9 9 9 8 9"></polyline>
                       </svg>
                     </a>
 
@@ -211,7 +224,7 @@ function App() {
 
                     {/* YouTube */}
                     <a
-                      href="https://youtube.com"
+                      href="https://www.youtube.com/@Samita_P"
                       target="_blank"
                       rel="noopener noreferrer"
                       aria-label="YouTube"
@@ -244,13 +257,156 @@ function App() {
                     <div className="sticky top-0 z-20 -mx-6 mb-4 w-screen bg-slate-900/75 px-6 py-5 backdrop-blur md:-mx-12 md:px-12 lg:sr-only lg:relative lg:top-auto lg:mx-auto lg:w-full lg:px-0 lg:py-0 lg:opacity-0">
                       <h2 className="text-lg font-bold uppercase tracking-widest text-slate-200 lg:sr-only">About</h2>
                     </div>
-                    <div className="flex flex-col gap-8">
+                    <div className="flex flex-col gap-6">
                       <p className="leading-relaxed text-base md:text-lg text-slate-400 text-justify">
-                        I am a Full Stack Software Engineer passionate about designing scalable applications and deploying intelligent solutions across web and cloud platforms. With a strong foundation in backend development, frontend frameworks, and database optimization, I thrive at the intersection of system architecture and user-centric design.
+                        I’m Samita Potnuru, a Full Stack Software Developer passionate about turning ideas into impactful digital experiences. I specialize in building high‑performance web applications, designing scalable backend systems, and deploying intelligent cloud solutions that empower users and businesses alike.
                       </p>
                       <p className="leading-relaxed text-base md:text-lg text-slate-400 text-justify">
-                        Through hands-on projects and research fellowships, I have built end-to-end applications leveraging modern stacks such as React, Node.js, Django, and cloud-native services. My experience spans API integration, microservices, and performance tuning, enabling me to deliver robust solutions on resource-constrained environments. I enjoy bridging theory and practice—whether it’s optimizing algorithms, streamlining workflows, or crafting intuitive interfaces that enhance user experience.
+                        Beyond code, I thrive on solving complex problems with creativity and precision. Whether it’s architecting microservices, optimizing databases, or crafting intuitive user interfaces, I bring a balance of technical depth and user‑centric design to every project.
                       </p>
+                      <p className="leading-relaxed text-base md:text-lg text-slate-400 text-justify">
+                        My journey includes hands‑on internships, academic projects, and real‑world collaborations that sharpened my skills in React.js, Node.js, Python, and cloud platforms. Each milestone reflects my drive to learn, adapt, and deliver solutions that make technology accessible and meaningful.
+                      </p>
+                      <p className="leading-relaxed text-base md:text-lg text-slate-400 text-justify">
+                        ✨ What excites me most? Building systems that don’t just work — they inspire confidence, scale effortlessly, and leave a lasting impact.
+                      </p>
+                    </div>
+                  </section>
+
+                  {/* EDUCATION SECTION */}
+                  <section id="education" className="mb-24 scroll-mt-16 md:mb-32 lg:mb-44 lg:scroll-mt-24" aria-label="Education">
+                    <div className="sticky top-0 z-20 -mx-6 mb-4 w-screen bg-slate-900/75 px-6 py-5 backdrop-blur md:-mx-12 md:px-12 lg:sr-only lg:relative lg:top-auto lg:mx-auto lg:w-full lg:px-0 lg:py-0 lg:opacity-0">
+                      <h2 className="text-lg font-bold uppercase tracking-widest text-slate-200 lg:sr-only">Education</h2>
+                    </div>
+
+                    <div>
+                      <ol className="flex flex-col gap-14">
+                        {/* B.Tech */}
+                        <li 
+                          className="mb-8 cursor-pointer select-none"
+                          onMouseEnter={() => setHoveredItem('edu-btech')}
+                          onMouseLeave={() => setHoveredItem(null)}
+                          onClick={() => setSelectedItem(prev => prev === 'edu-btech' ? null : 'edu-btech')}
+                        >
+                          <div className="group relative grid pb-1 transition-all sm:grid-cols-8 sm:gap-8 md:gap-4">
+                            <div className={`absolute -inset-x-4 -inset-y-4 z-0 hidden rounded-md transition motion-reduce:transition-none lg:-inset-x-6 lg:block ${
+                              (hoveredItem === 'edu-btech' || selectedItem === 'edu-btech') 
+                                ? 'bg-slate-800/30 shadow-[inset_0_1px_0_0_rgba(148,163,184,0.05)] drop-shadow-lg' 
+                                : ''
+                            }`} />
+                            <header className="z-10 mb-2 mt-1 text-sm font-semibold uppercase tracking-wide text-slate-500 sm:col-span-2" aria-label="Graduating 2026">
+                              2022 — 2026
+                            </header>
+                            <div className="z-10 sm:col-span-6 text-left">
+                              <h3 className="font-semibold leading-snug text-slate-200">
+                                <div>
+                                  <span className="inline-flex items-baseline font-semibold leading-tight text-slate-200 text-lg md:text-xl font-space">
+                                    B.Tech in Electronics & Communication Engineering
+                                  </span>
+                                </div>
+                              </h3>
+                              <p className="text-sm font-semibold text-teal-400 mt-1">Gandhi Institute of Technology and Management (GITAM) University</p>
+                              <motion.div
+                                initial={{ height: 0, opacity: 0 }}
+                                animate={{ 
+                                  height: (hoveredItem === 'edu-btech' || selectedItem === 'edu-btech') ? 'auto' : 0,
+                                  opacity: (hoveredItem === 'edu-btech' || selectedItem === 'edu-btech') ? 1 : 0
+                                }}
+                                transition={{ duration: 0.3 }}
+                                className="overflow-hidden"
+                              >
+                                <p className="mt-3 text-base md:text-lg leading-relaxed text-slate-400 text-justify">
+                                  <strong>CGPA:</strong> 8.98 / 10
+                                </p>
+                              </motion.div>
+                            </div>
+                          </div>
+                        </li>
+
+                        {/* MPC */}
+                        <li 
+                          className="mb-8 cursor-pointer select-none"
+                          onMouseEnter={() => setHoveredItem('edu-mpc')}
+                          onMouseLeave={() => setHoveredItem(null)}
+                          onClick={() => setSelectedItem(prev => prev === 'edu-mpc' ? null : 'edu-mpc')}
+                        >
+                          <div className="group relative grid pb-1 transition-all sm:grid-cols-8 sm:gap-8 md:gap-4">
+                            <div className={`absolute -inset-x-4 -inset-y-4 z-0 hidden rounded-md transition motion-reduce:transition-none lg:-inset-x-6 lg:block ${
+                              (hoveredItem === 'edu-mpc' || selectedItem === 'edu-mpc') 
+                                ? 'bg-slate-800/30 shadow-[inset_0_1px_0_0_rgba(148,163,184,0.05)] drop-shadow-lg' 
+                                : ''
+                            }`} />
+                            <header className="z-10 mb-2 mt-1 text-sm font-semibold uppercase tracking-wide text-slate-500 sm:col-span-2" aria-label="Completed 2022">
+                              2020 — 2022
+                            </header>
+                            <div className="z-10 sm:col-span-6 text-left">
+                              <h3 className="font-semibold leading-snug text-slate-200">
+                                <div>
+                                  <span className="inline-flex items-baseline font-semibold leading-tight text-slate-200 text-lg md:text-xl font-space">
+                                    Intermediate (MPC)
+                                  </span>
+                                </div>
+                              </h3>
+                              <p className="text-sm font-semibold text-teal-400 mt-1">Sri Chaitanya College</p>
+                              <motion.div
+                                initial={{ height: 0, opacity: 0 }}
+                                animate={{ 
+                                  height: (hoveredItem === 'edu-mpc' || selectedItem === 'edu-mpc') ? 'auto' : 0,
+                                  opacity: (hoveredItem === 'edu-mpc' || selectedItem === 'edu-mpc') ? 1 : 0
+                                }}
+                                transition={{ duration: 0.3 }}
+                                className="overflow-hidden"
+                              >
+                                <p className="mt-3 text-base md:text-lg leading-relaxed text-slate-400 text-justify">
+                                  <strong>CGPA:</strong> 8.73 / 10
+                                </p>
+                              </motion.div>
+                            </div>
+                          </div>
+                        </li>
+
+                        {/* SSC */}
+                        <li 
+                          className="mb-8 cursor-pointer select-none"
+                          onMouseEnter={() => setHoveredItem('edu-ssc')}
+                          onMouseLeave={() => setHoveredItem(null)}
+                          onClick={() => setSelectedItem(prev => prev === 'edu-ssc' ? null : 'edu-ssc')}
+                        >
+                          <div className="group relative grid pb-1 transition-all sm:grid-cols-8 sm:gap-8 md:gap-4">
+                            <div className={`absolute -inset-x-4 -inset-y-4 z-0 hidden rounded-md transition motion-reduce:transition-none lg:-inset-x-6 lg:block ${
+                              (hoveredItem === 'edu-ssc' || selectedItem === 'edu-ssc') 
+                                ? 'bg-slate-800/30 shadow-[inset_0_1px_0_0_rgba(148,163,184,0.05)] drop-shadow-lg' 
+                                : ''
+                            }`} />
+                            <header className="z-10 mb-2 mt-1 text-sm font-semibold uppercase tracking-wide text-slate-500 sm:col-span-2" aria-label="Completed 2020">
+                              2020
+                            </header>
+                            <div className="z-10 sm:col-span-6 text-left">
+                              <h3 className="font-semibold leading-snug text-slate-200">
+                                <div>
+                                  <span className="inline-flex items-baseline font-semibold leading-tight text-slate-200 text-lg md:text-xl font-space">
+                                    Secondary School Certificate (SSC)
+                                  </span>
+                                </div>
+                              </h3>
+                              <p className="text-sm font-semibold text-teal-400 mt-1">Amar School</p>
+                              <motion.div
+                                initial={{ height: 0, opacity: 0 }}
+                                animate={{ 
+                                  height: (hoveredItem === 'edu-ssc' || selectedItem === 'edu-ssc') ? 'auto' : 0,
+                                  opacity: (hoveredItem === 'edu-ssc' || selectedItem === 'edu-ssc') ? 1 : 0
+                                }}
+                                transition={{ duration: 0.3 }}
+                                className="overflow-hidden"
+                              >
+                                <p className="mt-3 text-base md:text-lg leading-relaxed text-slate-400 text-justify">
+                                  <strong>CGPA:</strong> 9.0 / 10
+                                </p>
+                              </motion.div>
+                            </div>
+                          </div>
+                        </li>
+                      </ol>
                     </div>
                   </section>
 
@@ -263,65 +419,113 @@ function App() {
                     <div>
                       <ol className="flex flex-col gap-14">
                         {/* IIT Madras */}
-                        <li className="mb-8">
+                        <li 
+                          className="mb-8 cursor-pointer select-none"
+                          onMouseEnter={() => setHoveredItem('internship-iit-madras')}
+                          onMouseLeave={() => setHoveredItem(null)}
+                          onClick={() => setSelectedItem(prev => prev === 'internship-iit-madras' ? null : 'internship-iit-madras')}
+                        >
                           <div className="group relative grid pb-1 transition-all sm:grid-cols-8 sm:gap-8 md:gap-4">
-                            <div className="absolute -inset-x-4 -inset-y-4 z-0 hidden rounded-md transition motion-reduce:transition-none lg:-inset-x-6 lg:block lg:group-hover:bg-slate-800/30 lg:group-hover:shadow-[inset_0_1px_0_0_rgba(148,163,184,0.05)] lg:group-hover:drop-shadow-lg" />
+                            <div className={`absolute -inset-x-4 -inset-y-4 z-0 hidden rounded-md transition motion-reduce:transition-none lg:-inset-x-6 lg:block ${
+                              (hoveredItem === 'internship-iit-madras' || selectedItem === 'internship-iit-madras') 
+                                ? 'bg-slate-800/30 shadow-[inset_0_1px_0_0_rgba(148,163,184,0.05)] drop-shadow-lg' 
+                                : ''
+                            }`} />
                             <header className="z-10 mb-2 mt-1 text-sm font-semibold uppercase tracking-wide text-slate-500 sm:col-span-2" aria-label="May 2025 to July 2025">
                               May — Jul 2025
                             </header>
                             <div className="z-10 sm:col-span-6 text-left">
                               <h3 className="font-semibold leading-snug text-slate-200">
                                 <div>
-                                  <a className="inline-flex items-baseline font-semibold leading-tight text-slate-200 group/link text-lg md:text-xl font-space" href="https://github.com/SamitaPotnuru/iitminternship" target="_blank" rel="noreferrer noopener">
-                                    <span className="absolute -inset-x-4 -inset-y-2.5 hidden rounded md:-inset-x-6 md:-inset-y-4 lg:block"></span>
+                                  <a 
+                                    className="inline-flex items-baseline font-semibold leading-tight text-slate-200 group/link text-lg md:text-xl font-space" 
+                                    href="https://github.com/SamitaPotnuru/iitminternship" 
+                                    target="_blank" 
+                                    rel="noreferrer noopener"
+                                    onClick={(e) => e.stopPropagation()}
+                                  >
                                     <span>Research Intern (Summer Fellowship Programme) · <span className="inline-block">IIT Madras<ArrowUpRight size={18} className="inline-block ml-0.5 group-hover/link:-translate-y-0.5 group-hover/link:translate-x-0.5 transition-transform" /></span></span>
                                   </a>
                                 </div>
                               </h3>
-                              <ul className="mt-3 text-base md:text-lg leading-relaxed text-slate-400 list-disc list-outside pl-4 flex flex-col gap-1.5 text-justify">
-                                <li>Designed a streaming IP core to compute log-power, perform dynamic peak detection, and generate histograms for frequency analysis.</li>
-                                <li>Implemented and optimized the architecture using Vitis HLS and Vivado 2024 on an FPGA development board.</li>
-                                <li>Improved hardware resource utilization and processing efficiency through architecture-level optimizations.</li>
-                              </ul>
-                              <ul className="mt-4 flex flex-wrap gap-2.5" aria-label="Technologies used">
-                                {['FPGA', 'Vitis HLS', 'Xilinx Vivado', 'Digital Design', 'Frequency Analysis'].map((tech) => (
-                                  <li key={tech} className="rounded-full bg-teal-400/10 px-3.5 py-1 text-xs font-semibold leading-5 text-teal-300">
-                                    {tech}
-                                  </li>
-                                ))}
-                              </ul>
+                              <motion.div
+                                initial={{ height: 0, opacity: 0 }}
+                                animate={{ 
+                                  height: (hoveredItem === 'internship-iit-madras' || selectedItem === 'internship-iit-madras') ? 'auto' : 0,
+                                  opacity: (hoveredItem === 'internship-iit-madras' || selectedItem === 'internship-iit-madras') ? 1 : 0
+                                }}
+                                transition={{ duration: 0.3 }}
+                                className="overflow-hidden"
+                              >
+                                <ul className="mt-3 text-base md:text-lg leading-relaxed text-slate-400 list-disc list-outside pl-4 flex flex-col gap-1.5 text-justify">
+                                  <li>Designed a streaming IP core to compute log-power, perform dynamic peak detection, and generate histograms for frequency analysis.</li>
+                                  <li>Implemented and optimized the architecture using Vitis HLS and Vivado 2024 on an FPGA development board.</li>
+                                  <li>Improved hardware resource utilization and processing efficiency through architecture-level optimizations.</li>
+                                </ul>
+                                <ul className="mt-4 flex flex-wrap gap-2.5" aria-label="Technologies used">
+                                  {['FPGA', 'Vitis HLS', 'Xilinx Vivado', 'Digital Design', 'Frequency Analysis'].map((tech) => (
+                                    <li key={tech} className="rounded-full bg-teal-400/10 px-3.5 py-1 text-xs font-semibold leading-5 text-teal-300">
+                                      {tech}
+                                    </li>
+                                  ))}
+                                </ul>
+                              </motion.div>
                             </div>
                           </div>
                         </li>
 
                         {/* IIT Hyderabad */}
-                        <li className="mb-8">
+                        <li 
+                          className="mb-8 cursor-pointer select-none"
+                          onMouseEnter={() => setHoveredItem('internship-iit-hyderabad')}
+                          onMouseLeave={() => setHoveredItem(null)}
+                          onClick={() => setSelectedItem(prev => prev === 'internship-iit-hyderabad' ? null : 'internship-iit-hyderabad')}
+                        >
                           <div className="group relative grid pb-1 transition-all sm:grid-cols-8 sm:gap-8 md:gap-4">
-                            <div className="absolute -inset-x-4 -inset-y-4 z-0 hidden rounded-md transition motion-reduce:transition-none lg:-inset-x-6 lg:block lg:group-hover:bg-slate-800/30 lg:group-hover:shadow-[inset_0_1px_0_0_rgba(148,163,184,0.05)] lg:group-hover:drop-shadow-lg" />
+                            <div className={`absolute -inset-x-4 -inset-y-4 z-0 hidden rounded-md transition motion-reduce:transition-none lg:-inset-x-6 lg:block ${
+                              (hoveredItem === 'internship-iit-hyderabad' || selectedItem === 'internship-iit-hyderabad') 
+                                ? 'bg-slate-800/30 shadow-[inset_0_1px_0_0_rgba(148,163,184,0.05)] drop-shadow-lg' 
+                                : ''
+                            }`} />
                             <header className="z-10 mb-2 mt-1 text-sm font-semibold uppercase tracking-wide text-slate-500 sm:col-span-2" aria-label="May 2024 to July 2024">
                               May — Jul 2024
                             </header>
                             <div className="z-10 sm:col-span-6 text-left">
                               <h3 className="font-semibold leading-snug text-slate-200">
                                 <div>
-                                  <a className="inline-flex items-baseline font-semibold leading-tight text-slate-200 group/link text-lg md:text-xl font-space" href="https://github.com/SamitaPotnuru/iithinternship" target="_blank" rel="noreferrer noopener">
-                                    <span className="absolute -inset-x-4 -inset-y-2.5 hidden rounded md:-inset-x-6 md:-inset-y-4 lg:block"></span>
+                                  <a 
+                                    className="inline-flex items-baseline font-semibold leading-tight text-slate-200 group/link text-lg md:text-xl font-space" 
+                                    href="https://github.com/SamitaPotnuru/iithinternship" 
+                                    target="_blank" 
+                                    rel="noreferrer noopener"
+                                    onClick={(e) => e.stopPropagation()}
+                                  >
                                     <span>Research Intern (SURE Programme) · <span className="inline-block">IIT Hyderabad<ArrowUpRight size={18} className="inline-block ml-0.5 group-hover/link:-translate-y-0.5 group-hover/link:translate-x-0.5 transition-transform" /></span></span>
                                   </a>
                                 </div>
                               </h3>
-                              <ul className="mt-3 text-base md:text-lg leading-relaxed text-slate-400 list-disc list-outside pl-4 flex flex-col gap-1.5 text-justify">
-                                <li>Implemented Python-based machine learning workflows using Google Colab for data processing and model experimentation.</li>
-                                <li>Performed data preprocessing, feature analysis, and model evaluation on research datasets.</li>
-                                <li>Studied BCZT ceramics, including synthesis techniques, electrical characteristics, and XRD analysis for material characterization.</li>
-                              </ul>
-                              <ul className="mt-4 flex flex-wrap gap-2.5" aria-label="Technologies used">
-                                {['Python', 'Machine Learning', 'Data Preprocessing', 'Material Characterization', 'XRD Analysis'].map((tech) => (
-                                  <li key={tech} className="rounded-full bg-teal-400/10 px-3.5 py-1 text-xs font-semibold leading-5 text-teal-300">
-                                    {tech}
-                                  </li>
-                                ))}
-                              </ul>
+                              <motion.div
+                                initial={{ height: 0, opacity: 0 }}
+                                animate={{ 
+                                  height: (hoveredItem === 'internship-iit-hyderabad' || selectedItem === 'internship-iit-hyderabad') ? 'auto' : 0,
+                                  opacity: (hoveredItem === 'internship-iit-hyderabad' || selectedItem === 'internship-iit-hyderabad') ? 1 : 0
+                                }}
+                                transition={{ duration: 0.3 }}
+                                className="overflow-hidden"
+                              >
+                                <ul className="mt-3 text-base md:text-lg leading-relaxed text-slate-400 list-disc list-outside pl-4 flex flex-col gap-1.5 text-justify">
+                                  <li>Implemented Python-based machine learning workflows using Google Colab for data processing and model experimentation.</li>
+                                  <li>Performed data preprocessing, feature analysis, and model evaluation on research datasets.</li>
+                                  <li>Studied BCZT ceramics, including synthesis techniques, electrical characteristics, and XRD analysis for material characterization.</li>
+                                </ul>
+                                <ul className="mt-4 flex flex-wrap gap-2.5" aria-label="Technologies used">
+                                  {['Python', 'Machine Learning', 'Data Preprocessing', 'Material Characterization', 'XRD Analysis'].map((tech) => (
+                                    <li key={tech} className="rounded-full bg-teal-400/10 px-3.5 py-1 text-xs font-semibold leading-5 text-teal-300">
+                                      {tech}
+                                    </li>
+                                  ))}
+                                </ul>
+                              </motion.div>
                             </div>
                           </div>
                         </li>
@@ -338,116 +542,314 @@ function App() {
                     <div>
                       <ul className="flex flex-col gap-14">
                         {/* Project 1 */}
-                        <li className="mb-8">
+                        <li 
+                          className="mb-8 cursor-pointer select-none"
+                          onMouseEnter={() => setHoveredItem('project-yatra')}
+                          onMouseLeave={() => setHoveredItem(null)}
+                          onClick={() => setSelectedItem(prev => prev === 'project-yatra' ? null : 'project-yatra')}
+                        >
                           <div className="group relative flex flex-col gap-2 pb-1 transition-all">
-                            <div className="absolute -inset-x-4 -inset-y-4 z-0 hidden rounded-md transition motion-reduce:transition-none lg:-inset-x-6 lg:block lg:group-hover:bg-slate-800/30 lg:group-hover:shadow-[inset_0_1px_0_0_rgba(148,163,184,0.05)] lg:group-hover:drop-shadow-lg" />
+                            <div className={`absolute -inset-x-4 -inset-y-4 z-0 hidden rounded-md transition motion-reduce:transition-none lg:-inset-x-6 lg:block ${
+                              (hoveredItem === 'project-yatra' || selectedItem === 'project-yatra') 
+                                ? 'bg-slate-800/30 shadow-[inset_0_1px_0_0_rgba(148,163,184,0.05)] drop-shadow-lg' 
+                                : ''
+                            }`} />
                             <div className="z-10 w-full">
                               <h3 className="font-semibold leading-snug text-slate-200">
                                 <div>
-                                  <a className="inline-flex items-baseline font-semibold leading-tight text-slate-200 group/link text-lg md:text-xl font-space" href="https://github.com/SamitaPotnuru/YatraAI2" target="_blank" rel="noreferrer noopener">
-                                    <span className="absolute -inset-x-4 -inset-y-2.5 hidden rounded md:-inset-x-6 md:-inset-y-4 lg:block"></span>
+                                  <a 
+                                    className="inline-flex items-baseline font-semibold leading-tight text-slate-200 group/link text-lg md:text-xl font-space" 
+                                    href="https://github.com/SamitaPotnuru/4TH-Year-Project" 
+                                    target="_blank" 
+                                    rel="noreferrer noopener"
+                                    onClick={(e) => e.stopPropagation()}
+                                  >
                                     <span>YatraAI - AI Powered Heritage Tourism Platform · 2026<svg className="w-5 h-5 inline-block ml-1.5 align-middle group-hover/link:text-teal-300 transition-colors" fill="currentColor" viewBox="0 0 24 24"><path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/></svg></span>
                                   </a>
                                 </div>
                               </h3>
-                              <ul className="mt-3 text-base md:text-lg leading-relaxed text-slate-400 list-disc pl-5 space-y-1 text-justify">
-                                <li>Developed a full-stack heritage tourism platform using React.js, TypeScript, TailwindCSS, Flask, and CNN.</li>
-                                <li>Built responsive user interfaces featuring monument recognition, multilingual AI assistance, interactive maps, and travel planning tools.</li>
-                                <li>Integrated Firebase Authentication, REST APIs, Leaflet Maps, and weather services to deliver real-time user experiences.</li>
-                                <li>Implemented AI-powered monument identification using CNN models with Groq AI integration for travel guidance.</li>
-                              </ul>
-                              <ul className="mt-4 flex flex-wrap gap-2.5" aria-label="Technologies used">
-                                {['React.js', 'TypeScript', 'TailwindCSS', 'Flask', 'CNN', 'Firebase', 'Leaflet', 'Groq AI'].map((tech) => (
-                                  <li key={tech} className="rounded-full bg-teal-400/10 px-3.5 py-1 text-xs font-semibold leading-5 text-teal-300">
-                                    {tech}
-                                  </li>
-                                ))}
-                              </ul>
+                              <motion.div
+                                initial={{ height: 0, opacity: 0 }}
+                                animate={{ 
+                                  height: (hoveredItem === 'project-yatra' || selectedItem === 'project-yatra') ? 'auto' : 0,
+                                  opacity: (hoveredItem === 'project-yatra' || selectedItem === 'project-yatra') ? 1 : 0
+                                }}
+                                transition={{ duration: 0.3 }}
+                                className="overflow-hidden"
+                              >
+                                <ul className="mt-3 text-base md:text-lg leading-relaxed text-slate-400 list-disc pl-5 space-y-1 text-justify">
+                                  <li>Developed a full-stack heritage tourism platform using React.js, TypeScript, TailwindCSS, Flask, and CNN.</li>
+                                  <li>Built responsive user interfaces featuring monument recognition, multilingual AI assistance, interactive maps, and travel planning tools.</li>
+                                  <li>Integrated Firebase Authentication, REST APIs, Leaflet Maps, and weather services to deliver real-time user experiences.</li>
+                                  <li>Implemented AI-powered monument identification using CNN models with Groq AI integration for travel guidance.</li>
+                                </ul>
+                                <ul className="mt-4 flex flex-wrap gap-2.5" aria-label="Technologies used">
+                                  {['React.js', 'TypeScript', 'TailwindCSS', 'Flask', 'CNN (Convolutional Neural Networks)', 'Firebase Auth', 'Leaflet Maps', 'Groq Llama-3 API', 'Image Classification', 'RESTful APIs'].map((tech) => (
+                                    <li key={tech} className="rounded-full bg-teal-400/10 px-3.5 py-1 text-xs font-semibold leading-5 text-teal-300">
+                                      {tech}
+                                    </li>
+                                  ))}
+                                </ul>
+                              </motion.div>
                             </div>
                           </div>
                         </li>
 
                         {/* Project 2 */}
-                        <li className="mb-8">
+                        <li 
+                          className="mb-8 cursor-pointer select-none"
+                          onMouseEnter={() => setHoveredItem('project-productivity')}
+                          onMouseLeave={() => setHoveredItem(null)}
+                          onClick={() => setSelectedItem(prev => prev === 'project-productivity' ? null : 'project-productivity')}
+                        >
                           <div className="group relative flex flex-col gap-2 pb-1 transition-all">
-                            <div className="absolute -inset-x-4 -inset-y-4 z-0 hidden rounded-md transition motion-reduce:transition-none lg:-inset-x-6 lg:block lg:group-hover:bg-slate-800/30 lg:group-hover:shadow-[inset_0_1px_0_0_rgba(148,163,184,0.05)] lg:group-hover:drop-shadow-lg" />
+                            <div className={`absolute -inset-x-4 -inset-y-4 z-0 hidden rounded-md transition motion-reduce:transition-none lg:-inset-x-6 lg:block ${
+                              (hoveredItem === 'project-productivity' || selectedItem === 'project-productivity') 
+                                ? 'bg-slate-800/30 shadow-[inset_0_1px_0_0_rgba(148,163,184,0.05)] drop-shadow-lg' 
+                                : ''
+                            }`} />
                             <div className="z-10 w-full">
                               <h3 className="font-semibold leading-snug text-slate-200">
                                 <div>
-                                  <a className="inline-flex items-baseline font-semibold leading-tight text-slate-200 group/link text-lg md:text-xl font-space" href="https://github.com/SamitaPotnuru/DailyProductivity_AI_Tool" target="_blank" rel="noreferrer noopener">
-                                    <span className="absolute -inset-x-4 -inset-y-2.5 hidden rounded md:-inset-x-6 md:-inset-y-4 lg:block"></span>
+                                  <a 
+                                    className="inline-flex items-baseline font-semibold leading-tight text-slate-200 group/link text-lg md:text-xl font-space" 
+                                    href="https://github.com/SamitaPotnuru/DailyProductivity_AI_Tool" 
+                                    target="_blank" 
+                                    rel="noreferrer noopener"
+                                    onClick={(e) => e.stopPropagation()}
+                                  >
                                     <span>Daily Productivity Tracker · 2026<svg className="w-5 h-5 inline-block ml-1.5 align-middle group-hover/link:text-teal-300 transition-colors" fill="currentColor" viewBox="0 0 24 24"><path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/></svg></span>
                                   </a>
                                 </div>
                               </h3>
-                              <ul className="mt-3 text-base md:text-lg leading-relaxed text-slate-400 list-disc pl-5 space-y-1 text-justify">
-                                <li>Developed a full-stack productivity tracking application using React.js, Spring Boot, JWT Authentication, and PostgreSQL.</li>
-                                <li>Built responsive dashboards for task management, productivity analytics, and efficiency tracking with CRUD and REST API integration.</li>
-                                <li>Implemented secure user authentication, task filtering, and real-time performance metrics using React components and Spring Security.</li>
-                              </ul>
-                              <ul className="mt-4 flex flex-wrap gap-2.5" aria-label="Technologies used">
-                                {['React.js', 'Spring Boot', 'JWT', 'PostgreSQL', 'REST API', 'Spring Security'].map((tech) => (
-                                  <li key={tech} className="rounded-full bg-teal-400/10 px-3.5 py-1 text-xs font-semibold leading-5 text-teal-300">
-                                    {tech}
-                                  </li>
-                                ))}
-                              </ul>
+                              <motion.div
+                                initial={{ height: 0, opacity: 0 }}
+                                animate={{ 
+                                  height: (hoveredItem === 'project-productivity' || selectedItem === 'project-productivity') ? 'auto' : 0,
+                                  opacity: (hoveredItem === 'project-productivity' || selectedItem === 'project-productivity') ? 1 : 0
+                                }}
+                                transition={{ duration: 0.3 }}
+                                className="overflow-hidden"
+                              >
+                                <ul className="mt-3 text-base md:text-lg leading-relaxed text-slate-400 list-disc pl-5 space-y-1 text-justify">
+                                  <li>Developed a full-stack productivity tracking application using React.js, Spring Boot, JWT Authentication, and PostgreSQL.</li>
+                                  <li>Built responsive dashboards for task management, productivity analytics, and efficiency tracking with CRUD and REST API integration.</li>
+                                  <li>Implemented secure user authentication, task filtering, and real-time performance metrics using React components and Spring Security.</li>
+                                </ul>
+                                <ul className="mt-4 flex flex-wrap gap-2.5" aria-label="Technologies used">
+                                  {['React.js', 'Spring Boot', 'Spring Security', 'JWT Authentication', 'PostgreSQL', 'Hibernate ORM', 'RESTful API', 'Productivity Metrics', 'Data Persistence'].map((tech) => (
+                                    <li key={tech} className="rounded-full bg-teal-400/10 px-3.5 py-1 text-xs font-semibold leading-5 text-teal-300">
+                                      {tech}
+                                    </li>
+                                  ))}
+                                </ul>
+                              </motion.div>
                             </div>
                           </div>
                         </li>
 
                         {/* Project 3 */}
-                        <li className="mb-8">
+                        <li 
+                          className="mb-8 cursor-pointer select-none"
+                          onMouseEnter={() => setHoveredItem('project-human-motion')}
+                          onMouseLeave={() => setHoveredItem(null)}
+                          onClick={() => setSelectedItem(prev => prev === 'project-human-motion' ? null : 'project-human-motion')}
+                        >
                           <div className="group relative flex flex-col gap-2 pb-1 transition-all">
-                            <div className="absolute -inset-x-4 -inset-y-4 z-0 hidden rounded-md transition motion-reduce:transition-none lg:-inset-x-6 lg:block lg:group-hover:bg-slate-800/30 lg:group-hover:shadow-[inset_0_1px_0_0_rgba(148,163,184,0.05)] lg:group-hover:drop-shadow-lg" />
+                            <div className={`absolute -inset-x-4 -inset-y-4 z-0 hidden rounded-md transition motion-reduce:transition-none lg:-inset-x-6 lg:block ${
+                              (hoveredItem === 'project-human-motion' || selectedItem === 'project-human-motion') 
+                                ? 'bg-slate-800/30 shadow-[inset_0_1px_0_0_rgba(148,163,184,0.05)] drop-shadow-lg' 
+                                : ''
+                            }`} />
                             <div className="z-10 w-full">
                               <h3 className="font-semibold leading-snug text-slate-200">
                                 <div>
-                                  <a className="inline-flex items-baseline font-semibold leading-tight text-slate-200 group/link text-lg md:text-xl font-space" href="https://github.com/SamitaPotnuru/HumanMotion" target="_blank" rel="noreferrer noopener">
-                                    <span className="absolute -inset-x-4 -inset-y-2.5 hidden rounded md:-inset-x-6 md:-inset-y-4 lg:block"></span>
+                                  <a 
+                                    className="inline-flex items-baseline font-semibold leading-tight text-slate-200 group/link text-lg md:text-xl font-space" 
+                                    href="https://github.com/SamitaPotnuru/HumanMotion" 
+                                    target="_blank" 
+                                    rel="noreferrer noopener"
+                                    onClick={(e) => e.stopPropagation()}
+                                  >
                                     <span>Real-Time Human Motion Classification · IIT Bhubaneswar<svg className="w-5 h-5 inline-block ml-1.5 align-middle group-hover/link:text-teal-300 transition-colors" fill="currentColor" viewBox="0 0 24 24"><path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/></svg></span>
                                   </a>
                                 </div>
                               </h3>
                               <div className="text-sm text-slate-500 font-mono mt-1">03/2025 – 05/2025</div>
-                              <ul className="mt-2 text-base md:text-lg leading-relaxed text-slate-400 list-disc pl-5 space-y-1 text-justify">
-                                <li>Developed and deployed an edge AI solution on ESP32 for real-time Parkinson’s disease detection using IMU sensor data.</li>
-                                <li>Built machine learning pipelines using Python and Google Colab, achieving 85% classification accuracy through signal processing and model optimization.</li>
-                              </ul>
-                              <ul className="mt-4 flex flex-wrap gap-2.5" aria-label="Technologies used">
-                                {['ESP32', 'Python', 'Google Colab', 'IMU Sensors', 'Edge AI', 'Signal Processing'].map((tech) => (
-                                  <li key={tech} className="rounded-full bg-teal-400/10 px-3.5 py-1 text-xs font-semibold leading-5 text-teal-300">
-                                    {tech}
-                                  </li>
-                                ))}
-                              </ul>
+                              <motion.div
+                                initial={{ height: 0, opacity: 0 }}
+                                animate={{ 
+                                  height: (hoveredItem === 'project-human-motion' || selectedItem === 'project-human-motion') ? 'auto' : 0,
+                                  opacity: (hoveredItem === 'project-human-motion' || selectedItem === 'project-human-motion') ? 1 : 0
+                                }}
+                                transition={{ duration: 0.3 }}
+                                className="overflow-hidden"
+                              >
+                                <ul className="mt-2 text-base md:text-lg leading-relaxed text-slate-400 list-disc pl-5 space-y-1 text-justify">
+                                  <li>Developed and deployed an edge AI solution on ESP32 for real-time Parkinson’s disease detection using IMU sensor data.</li>
+                                  <li>Built machine learning pipelines using Python and Google Colab, achieving 85% classification accuracy through signal processing and model optimization.</li>
+                                </ul>
+                                <ul className="mt-4 flex flex-wrap gap-2.5" aria-label="Technologies used">
+                                  {['ESP32 Microcontroller', 'Python', 'Google Colab', 'MPU6050 IMU Sensor', 'Edge AI (TinyML)', 'Signal Processing', 'Time-Series Classification', "Parkinson's Detection"].map((tech) => (
+                                    <li key={tech} className="rounded-full bg-teal-400/10 px-3.5 py-1 text-xs font-semibold leading-5 text-teal-300">
+                                      {tech}
+                                    </li>
+                                  ))}
+                                </ul>
+                              </motion.div>
                             </div>
                           </div>
                         </li>
 
                         {/* Project 4 */}
-                        <li className="mb-8">
+                        <li 
+                          className="mb-8 cursor-pointer select-none"
+                          onMouseEnter={() => setHoveredItem('project-smart-bridge')}
+                          onMouseLeave={() => setHoveredItem(null)}
+                          onClick={() => setSelectedItem(prev => prev === 'project-smart-bridge' ? null : 'project-smart-bridge')}
+                        >
                           <div className="group relative flex flex-col gap-2 pb-1 transition-all">
-                            <div className="absolute -inset-x-4 -inset-y-4 z-0 hidden rounded-md transition motion-reduce:transition-none lg:-inset-x-6 lg:block lg:group-hover:bg-slate-800/30 lg:group-hover:shadow-[inset_0_1px_0_0_rgba(148,163,184,0.05)] lg:group-hover:drop-shadow-lg" />
+                            <div className={`absolute -inset-x-4 -inset-y-4 z-0 hidden rounded-md transition motion-reduce:transition-none lg:-inset-x-6 lg:block ${
+                              (hoveredItem === 'project-smart-bridge' || selectedItem === 'project-smart-bridge') 
+                                ? 'bg-slate-800/30 shadow-[inset_0_1px_0_0_rgba(148,163,184,0.05)] drop-shadow-lg' 
+                                : ''
+                            }`} />
                             <div className="z-10 w-full">
                               <h3 className="font-semibold leading-snug text-slate-200">
                                 <div>
-                                  <a className="inline-flex items-baseline font-semibold leading-tight text-slate-200 group/link text-lg md:text-xl font-space" href="https://github.com/SamitaPotnuru/SmartBridge" target="_blank" rel="noreferrer noopener">
-                                    <span className="absolute -inset-x-4 -inset-y-2.5 hidden rounded md:-inset-x-6 md:-inset-y-4 lg:block"></span>
+                                  <a 
+                                    className="inline-flex items-baseline font-semibold leading-tight text-slate-200 group/link text-lg md:text-xl font-space" 
+                                    href="https://github.com/SamitaPotnuru/SmartBridge" 
+                                    target="_blank" 
+                                    rel="noreferrer noopener"
+                                    onClick={(e) => e.stopPropagation()}
+                                  >
                                     <span>Sustainable Bridge Construction (Smart Bridge Risk Mitigation)<svg className="w-5 h-5 inline-block ml-1.5 align-middle group-hover/link:text-teal-300 transition-colors" fill="currentColor" viewBox="0 0 24 24"><path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/></svg></span>
                                   </a>
                                 </div>
                               </h3>
-                              <p className="mt-3 text-base md:text-lg leading-relaxed text-slate-400 text-justify">
-                                Structuring health tracking sensors for bridges utilizing strain gauges, accelerometer readings, and real-time wireless alert telemetry.
-                              </p>
-                              <ul className="mt-4 flex flex-wrap gap-2.5" aria-label="Technologies used">
-                                {['Arduino', 'Strain Gauges', 'Sensors', 'Telemetry', 'IoT'].map((tech) => (
-                                  <li key={tech} className="rounded-full bg-teal-400/10 px-3.5 py-1 text-xs font-semibold leading-5 text-teal-300">
-                                    {tech}
-                                  </li>
-                                ))}
-                              </ul>
+                              <motion.div
+                                initial={{ height: 0, opacity: 0 }}
+                                animate={{ 
+                                  height: (hoveredItem === 'project-smart-bridge' || selectedItem === 'project-smart-bridge') ? 'auto' : 0,
+                                  opacity: (hoveredItem === 'project-smart-bridge' || selectedItem === 'project-smart-bridge') ? 1 : 0
+                                }}
+                                transition={{ duration: 0.3 }}
+                                className="overflow-hidden"
+                              >
+                                <p className="mt-3 text-base md:text-lg leading-relaxed text-slate-400 text-justify">
+                                  Structuring health tracking sensors for bridges utilizing strain gauges, accelerometer readings, and real-time wireless alert telemetry.
+                                </p>
+                                <ul className="mt-4 flex flex-wrap gap-2.5" aria-label="Technologies used">
+                                  {['Arduino UNO', 'Strain Gauges', 'Load Cells', 'Telemetry Systems', 'Internet of Things (IoT)', 'Structural Health Monitoring', 'Real-time Telemetry'].map((tech) => (
+                                    <li key={tech} className="rounded-full bg-teal-400/10 px-3.5 py-1 text-xs font-semibold leading-5 text-teal-300">
+                                      {tech}
+                                    </li>
+                                  ))}
+                                </ul>
+                              </motion.div>
+                            </div>
+                          </div>
+                        </li>
+
+                        {/* Project 5 */}
+                        <li 
+                          className="mb-8 cursor-pointer select-none"
+                          onMouseEnter={() => setHoveredItem('project-gps-vehicle')}
+                          onMouseLeave={() => setHoveredItem(null)}
+                          onClick={() => setSelectedItem(prev => prev === 'project-gps-vehicle' ? null : 'project-gps-vehicle')}
+                        >
+                          <div className="group relative flex flex-col gap-2 pb-1 transition-all">
+                            <div className={`absolute -inset-x-4 -inset-y-4 z-0 hidden rounded-md transition motion-reduce:transition-none lg:-inset-x-6 lg:block ${
+                              (hoveredItem === 'project-gps-vehicle' || selectedItem === 'project-gps-vehicle') 
+                                ? 'bg-slate-800/30 shadow-[inset_0_1px_0_0_rgba(148,163,184,0.05)] drop-shadow-lg' 
+                                : ''
+                            }`} />
+                            <div className="z-10 w-full">
+                              <h3 className="font-semibold leading-snug text-slate-200">
+                                <div>
+                                  <a 
+                                    className="inline-flex items-baseline font-semibold leading-tight text-slate-200 group/link text-lg md:text-xl font-space" 
+                                    href="https://github.com/SamitaPotnuru/GPS_GUIDED_GROUND_VEHICLE" 
+                                    target="_blank" 
+                                    rel="noreferrer noopener"
+                                    onClick={(e) => e.stopPropagation()}
+                                  >
+                                    <span>GPS Guided Ground Vehicle<svg className="w-5 h-5 inline-block ml-1.5 align-middle group-hover/link:text-teal-300 transition-colors" fill="currentColor" viewBox="0 0 24 24"><path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/></svg></span>
+                                  </a>
+                                </div>
+                              </h3>
+                              <motion.div
+                                initial={{ height: 0, opacity: 0 }}
+                                animate={{ 
+                                  height: (hoveredItem === 'project-gps-vehicle' || selectedItem === 'project-gps-vehicle') ? 'auto' : 0,
+                                  opacity: (hoveredItem === 'project-gps-vehicle' || selectedItem === 'project-gps-vehicle') ? 1 : 0
+                                }}
+                                transition={{ duration: 0.3 }}
+                                className="overflow-hidden"
+                              >
+                                <p className="mt-3 text-base md:text-lg leading-relaxed text-slate-400 text-justify">
+                                  Designed and built an autonomous ground vehicle utilizing GPS navigation, digital compass sensors, and motor driver telemetry for precise path tracking and target navigation.
+                                </p>
+                                <ul className="mt-4 flex flex-wrap gap-2.5" aria-label="Technologies used">
+                                  {['Arduino Mega', 'NEO-6M GPS Module', 'HMC5883L Compass', 'Robotics Kinematics', 'Autonomous Path Planning', 'PID Control Algorithm', 'L298N Motor Driver'].map((tech) => (
+                                    <li key={tech} className="rounded-full bg-teal-400/10 px-3.5 py-1 text-xs font-semibold leading-5 text-teal-300">
+                                      {tech}
+                                    </li>
+                                  ))}
+                                </ul>
+                              </motion.div>
+                            </div>
+                          </div>
+                        </li>
+
+                        {/* Project 6 */}
+                        <li 
+                          className="mb-8 cursor-pointer select-none"
+                          onMouseEnter={() => setHoveredItem('project-earthquake-detector')}
+                          onMouseLeave={() => setHoveredItem(null)}
+                          onClick={() => setSelectedItem(prev => prev === 'project-earthquake-detector' ? null : 'project-earthquake-detector')}
+                        >
+                          <div className="group relative flex flex-col gap-2 pb-1 transition-all">
+                            <div className={`absolute -inset-x-4 -inset-y-4 z-0 hidden rounded-md transition motion-reduce:transition-none lg:-inset-x-6 lg:block ${
+                              (hoveredItem === 'project-earthquake-detector' || selectedItem === 'project-earthquake-detector') 
+                                ? 'bg-slate-800/30 shadow-[inset_0_1px_0_0_rgba(148,163,184,0.05)] drop-shadow-lg' 
+                                : ''
+                            }`} />
+                            <div className="z-10 w-full">
+                              <h3 className="font-semibold leading-snug text-slate-200">
+                                <div>
+                                  <a 
+                                    className="inline-flex items-baseline font-semibold leading-tight text-slate-200 group/link text-lg md:text-xl font-space" 
+                                    href="https://github.com/SamitaPotnuru/EARTHQUAKE_DETECTOR_Using_ADXL335" 
+                                    target="_blank" 
+                                    rel="noreferrer noopener"
+                                    onClick={(e) => e.stopPropagation()}
+                                  >
+                                    <span>Earthquake Detector Using ADXL335<svg className="w-5 h-5 inline-block ml-1.5 align-middle group-hover/link:text-teal-300 transition-colors" fill="currentColor" viewBox="0 0 24 24"><path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/></svg></span>
+                                  </a>
+                                </div>
+                              </h3>
+                              <motion.div
+                                initial={{ height: 0, opacity: 0 }}
+                                animate={{ 
+                                  height: (hoveredItem === 'project-earthquake-detector' || selectedItem === 'project-earthquake-detector') ? 'auto' : 0,
+                                  opacity: (hoveredItem === 'project-earthquake-detector' || selectedItem === 'project-earthquake-detector') ? 1 : 0
+                                }}
+                                transition={{ duration: 0.3 }}
+                                className="overflow-hidden"
+                              >
+                                <p className="mt-3 text-base md:text-lg leading-relaxed text-slate-400 text-justify">
+                                  Developed an earthquake detection system utilizing an ADXL335 tri-axial accelerometer sensor to record seismic wave patterns, trigger alerts on threshold breaches, and coordinate alert signals.
+                                </p>
+                                <ul className="mt-4 flex flex-wrap gap-2.5" aria-label="Technologies used">
+                                  {['ADXL335 Accelerometer', 'Arduino Nano', 'Seismic Detection', 'Hardware Interfacing', 'Vibration Analysis', 'Threshold Trigger Alert', 'Signal Processing'].map((tech) => (
+                                    <li key={tech} className="rounded-full bg-teal-400/10 px-3.5 py-1 text-xs font-semibold leading-5 text-teal-300">
+                                      {tech}
+                                    </li>
+                                  ))}
+                                </ul>
+                              </motion.div>
                             </div>
                           </div>
                         </li>
@@ -462,6 +864,202 @@ function App() {
                     </div>
                     <div className="flex flex-col gap-6">
                       <SkillUniverse />
+                    </div>
+                  </section>
+
+                  {/* COMPETITIONS SECTION */}
+                  <section id="competitions" className="mb-24 scroll-mt-16 md:mb-32 lg:mb-44 lg:scroll-mt-24" aria-label="Competitions">
+                    <div className="sticky top-0 z-20 -mx-6 mb-4 w-screen bg-slate-900/75 px-6 py-5 backdrop-blur md:-mx-12 md:px-12 lg:sr-only lg:relative lg:top-auto lg:mx-auto lg:w-full lg:px-0 lg:py-0 lg:opacity-0">
+                      <h2 className="text-lg font-bold uppercase tracking-widest text-slate-200 lg:sr-only">Competitions</h2>
+                    </div>
+
+                    <div>
+                      <ul className="flex flex-col gap-14">
+                        {/* Competition 1: CodeHer Hackathon */}
+                        <li 
+                          className="mb-8 cursor-pointer select-none"
+                          onMouseEnter={() => setHoveredItem('comp-codeher')}
+                          onMouseLeave={() => setHoveredItem(null)}
+                          onClick={() => setSelectedItem(prev => prev === 'comp-codeher' ? null : 'comp-codeher')}
+                        >
+                          <div className="group relative grid pb-1 transition-all sm:grid-cols-8 sm:gap-8 md:gap-4">
+                            <div className={`absolute -inset-x-4 -inset-y-4 z-0 hidden rounded-md transition motion-reduce:transition-none lg:-inset-x-6 lg:block ${
+                              (hoveredItem === 'comp-codeher' || selectedItem === 'comp-codeher') 
+                                ? 'bg-slate-800/30 shadow-[inset_0_1px_0_0_rgba(148,163,184,0.05)] drop-shadow-lg' 
+                                : ''
+                            }`} />
+                            <header className="z-10 mb-2 mt-1 text-sm font-semibold uppercase tracking-wide text-slate-500 sm:col-span-2" aria-label="January 2025">
+                              Jan 2025
+                            </header>
+                            <div className="z-10 sm:col-span-6 text-left">
+                              <h3 className="font-semibold leading-snug text-slate-200">
+                                <div>
+                                  <a 
+                                    className="inline-flex items-baseline font-semibold leading-tight text-slate-200 group/link text-lg md:text-xl font-space" 
+                                    href="https://github.com/SamitaPotnuru/Attendance-Tracking-System" 
+                                    target="_blank" 
+                                    rel="noreferrer noopener"
+                                    onClick={(e) => e.stopPropagation()}
+                                  >
+                                    <span>CodeHer Hackathon · WLF<ArrowUpRight size={18} className="inline-block ml-0.5 group-hover/link:-translate-y-0.5 group-hover/link:translate-x-0.5 transition-transform" /></span>
+                                  </a>
+                                </div>
+                              </h3>
+                              <motion.div
+                                initial={{ height: 0, opacity: 0 }}
+                                animate={{ 
+                                  height: (hoveredItem === 'comp-codeher' || selectedItem === 'comp-codeher') ? 'auto' : 0,
+                                  opacity: (hoveredItem === 'comp-codeher' || selectedItem === 'comp-codeher') ? 1 : 0
+                                }}
+                                transition={{ duration: 0.3 }}
+                                className="overflow-hidden"
+                              >
+                                <ul className="mt-3 text-base md:text-lg leading-relaxed text-slate-400 list-disc list-outside pl-4 flex flex-col gap-1.5 text-justify">
+                                  <li>Built an attendance tracking solution.</li>
+                                  <li>Secured 5th place.</li>
+                                </ul>
+                              </motion.div>
+                            </div>
+                          </div>
+                        </li>
+
+                        {/* Competition 2: ICTIEE 2025 */}
+                        <li 
+                          className="mb-8 cursor-pointer select-none"
+                          onMouseEnter={() => setHoveredItem('comp-ictiee')}
+                          onMouseLeave={() => setHoveredItem(null)}
+                          onClick={() => setSelectedItem(prev => prev === 'comp-ictiee' ? null : 'comp-ictiee')}
+                        >
+                          <div className="group relative grid pb-1 transition-all sm:grid-cols-8 sm:gap-8 md:gap-4">
+                            <div className={`absolute -inset-x-4 -inset-y-4 z-0 hidden rounded-md transition motion-reduce:transition-none lg:-inset-x-6 lg:block ${
+                              (hoveredItem === 'comp-ictiee' || selectedItem === 'comp-ictiee') 
+                                ? 'bg-slate-800/30 shadow-[inset_0_1px_0_0_rgba(148,163,184,0.05)] drop-shadow-lg' 
+                                : ''
+                            }`} />
+                            <header className="z-10 mb-2 mt-1 text-sm font-semibold uppercase tracking-wide text-slate-500 sm:col-span-2" aria-label="January 2025">
+                              Jan 2025
+                            </header>
+                            <div className="z-10 sm:col-span-6 text-left">
+                              <h3 className="font-semibold leading-snug text-slate-200">
+                                <div>
+                                  <span className="inline-flex items-baseline font-semibold leading-tight text-slate-200 text-lg md:text-xl font-space">
+                                    ICTIEE 2025 · VNRVJIET, Hyderabad
+                                  </span>
+                                </div>
+                              </h3>
+                              <motion.div
+                                initial={{ height: 0, opacity: 0 }}
+                                animate={{ 
+                                  height: (hoveredItem === 'comp-ictiee' || selectedItem === 'comp-ictiee') ? 'auto' : 0,
+                                  opacity: (hoveredItem === 'comp-ictiee' || selectedItem === 'comp-ictiee') ? 1 : 0
+                                }}
+                                transition={{ duration: 0.3 }}
+                                className="overflow-hidden"
+                              >
+                                <ul className="mt-3 text-base md:text-lg leading-relaxed text-slate-400 list-disc list-outside pl-4 flex flex-col gap-1.5 text-justify">
+                                  <li>Presented IoT-based Sustainable Bridge.</li>
+                                  <li>Recognized among top 20% of submissions.</li>
+                                </ul>
+                              </motion.div>
+                            </div>
+                          </div>
+                        </li>
+                      </ul>
+                    </div>
+                  </section>
+
+                  {/* POSITIONS OF RESPONSIBILITY SECTION */}
+                  <section id="responsibility" className="mb-24 scroll-mt-16 md:mb-32 lg:mb-44 lg:scroll-mt-24" aria-label="Positions of Responsibility">
+                    <div className="sticky top-0 z-20 -mx-6 mb-4 w-screen bg-slate-900/75 px-6 py-5 backdrop-blur md:-mx-12 md:px-12 lg:sr-only lg:relative lg:top-auto lg:mx-auto lg:w-full lg:px-0 lg:py-0 lg:opacity-0">
+                      <h2 className="text-lg font-bold uppercase tracking-widest text-slate-200 lg:sr-only">Responsibility</h2>
+                    </div>
+
+                    <div>
+                      <ul className="flex flex-col gap-14">
+                        {/* IETE Student Chapter */}
+                        <li 
+                          className="mb-8 cursor-pointer select-none"
+                          onMouseEnter={() => setHoveredItem('resp-iete')}
+                          onMouseLeave={() => setHoveredItem(null)}
+                          onClick={() => setSelectedItem(prev => prev === 'resp-iete' ? null : 'resp-iete')}
+                        >
+                          <div className="group relative grid pb-1 transition-all sm:grid-cols-8 sm:gap-8 md:gap-4">
+                            <div className={`absolute -inset-x-4 -inset-y-4 z-0 hidden rounded-md transition motion-reduce:transition-none lg:-inset-x-6 lg:block ${
+                              (hoveredItem === 'resp-iete' || selectedItem === 'resp-iete') 
+                                ? 'bg-slate-800/30 shadow-[inset_0_1px_0_0_rgba(148,163,184,0.05)] drop-shadow-lg' 
+                                : ''
+                            }`} />
+                            <header className="z-10 mb-2 mt-1 text-sm font-semibold uppercase tracking-wide text-slate-500 sm:col-span-2" aria-label="October 2024 to March 2026">
+                              Oct 2024 — Mar 2026
+                            </header>
+                            <div className="z-10 sm:col-span-6 text-left">
+                              <h3 className="font-semibold leading-snug text-slate-200">
+                                <div>
+                                  <span className="inline-flex items-baseline font-semibold leading-tight text-slate-200 text-lg md:text-xl font-space">
+                                    IETE Student Chapter · GITAM
+                                  </span>
+                                </div>
+                              </h3>
+                              <p className="text-sm font-semibold text-teal-400 mt-1">Core Member</p>
+                              <motion.div
+                                initial={{ height: 0, opacity: 0 }}
+                                animate={{ 
+                                  height: (hoveredItem === 'resp-iete' || selectedItem === 'resp-iete') ? 'auto' : 0,
+                                  opacity: (hoveredItem === 'resp-iete' || selectedItem === 'resp-iete') ? 1 : 0
+                                }}
+                                transition={{ duration: 0.3 }}
+                                className="overflow-hidden"
+                              >
+                                <p className="mt-3 text-base md:text-lg leading-relaxed text-slate-400 text-justify">
+                                  Contributed to student community engineering, technical events, workshops coordination, and academic knowledge exchange initiatives.
+                                </p>
+                              </motion.div>
+                            </div>
+                          </div>
+                        </li>
+
+                        {/* Entrepreneurs Club */}
+                        <li 
+                          className="mb-8 cursor-pointer select-none"
+                          onMouseEnter={() => setHoveredItem('resp-eclub')}
+                          onMouseLeave={() => setHoveredItem(null)}
+                          onClick={() => setSelectedItem(prev => prev === 'resp-eclub' ? null : 'resp-eclub')}
+                        >
+                          <div className="group relative grid pb-1 transition-all sm:grid-cols-8 sm:gap-8 md:gap-4">
+                            <div className={`absolute -inset-x-4 -inset-y-4 z-0 hidden rounded-md transition motion-reduce:transition-none lg:-inset-x-6 lg:block ${
+                              (hoveredItem === 'resp-eclub' || selectedItem === 'resp-eclub') 
+                                ? 'bg-slate-800/30 shadow-[inset_0_1px_0_0_rgba(148,163,184,0.05)] drop-shadow-lg' 
+                                : ''
+                            }`} />
+                            <header className="z-10 mb-2 mt-1 text-sm font-semibold uppercase tracking-wide text-slate-500 sm:col-span-2" aria-label="October 2023 to December 2024">
+                              Oct 2023 — Dec 2024
+                            </header>
+                            <div className="z-10 sm:col-span-6 text-left">
+                              <h3 className="font-semibold leading-snug text-slate-200">
+                                <div>
+                                  <span className="inline-flex items-baseline font-semibold leading-tight text-slate-200 text-lg md:text-xl font-space">
+                                    Entrepreneurs Club · GITAM
+                                  </span>
+                                </div>
+                              </h3>
+                              <p className="text-sm font-semibold text-teal-400 mt-1">Coordinator</p>
+                              <motion.div
+                                initial={{ height: 0, opacity: 0 }}
+                                animate={{ 
+                                  height: (hoveredItem === 'resp-eclub' || selectedItem === 'resp-eclub') ? 'auto' : 0,
+                                  opacity: (hoveredItem === 'resp-eclub' || selectedItem === 'resp-eclub') ? 1 : 0
+                                }}
+                                transition={{ duration: 0.3 }}
+                                className="overflow-hidden"
+                              >
+                                <p className="mt-3 text-base md:text-lg leading-relaxed text-slate-400 text-justify">
+                                  Managed coordinates for entrepreneurial networking, ideation bootcamps, speaker sessions, and startup growth-focused student meetups.
+                                </p>
+                              </motion.div>
+                            </div>
+                          </div>
+                        </li>
+                      </ul>
                     </div>
                   </section>
 
@@ -481,59 +1079,6 @@ function App() {
                     </div>
                   </section>
 
-                  {/* CONTACT & MESSAGE FORM */}
-                  <section id="contact" className="mb-24 scroll-mt-16 md:mb-32 lg:mb-44 lg:scroll-mt-24" aria-label="Contact Samita">
-                    <div className="sticky top-0 z-20 -mx-6 mb-4 w-screen bg-slate-900/75 px-6 py-5 backdrop-blur md:-mx-12 md:px-12 lg:sr-only lg:relative lg:top-auto lg:mx-auto lg:w-full lg:px-0 lg:py-0 lg:opacity-0">
-                      <h2 className="text-lg font-bold uppercase tracking-widest text-slate-200 lg:sr-only">Contact</h2>
-                    </div>
-
-                    <div className="flex flex-col gap-6">
-                      <p className="leading-relaxed text-slate-400 text-base md:text-lg text-justify">
-                        Have an interesting project, custom silicon accelerator research, or a role you'd like to discuss? Send a message directly.
-                      </p>
-
-                      <form action="https://formspree.io/f/xvzbabdn" method="POST" className="p-8 rounded-3xl glass-card flex flex-col gap-5 text-left bg-slate-800/20">
-                        <div className="flex flex-col gap-2">
-                          <label className="text-xs tracking-widest font-mono text-slate-400 font-semibold uppercase">Name</label>
-                          <input
-                            type="text"
-                            name="name"
-                            required
-                            placeholder="Your Name"
-                            className="bg-slate-800/40 border border-slate-700/50 rounded-xl px-4 py-3 text-sm text-slate-200 outline-none focus:border-teal-400 focus:bg-slate-800 transition-colors"
-                          />
-                        </div>
-                        <div className="flex flex-col gap-2">
-                          <label className="text-xs tracking-widest font-mono text-slate-400 font-semibold uppercase">Email</label>
-                          <input
-                            type="email"
-                            name="email"
-                            required
-                            placeholder="Your Email"
-                            className="bg-slate-800/40 border border-slate-700/50 rounded-xl px-4 py-3 text-sm text-slate-200 outline-none focus:border-teal-400 focus:bg-slate-800 transition-colors"
-                          />
-                        </div>
-                        <div className="flex flex-col gap-2">
-                          <label className="text-xs tracking-widest font-mono text-slate-400 font-semibold uppercase">Message</label>
-                          <textarea
-                            name="message"
-                            rows={4}
-                            required
-                            placeholder="Write your message..."
-                            className="bg-slate-800/40 border border-slate-700/50 rounded-xl px-4 py-3 text-sm text-slate-200 outline-none focus:border-teal-400 focus:bg-slate-800 transition-colors resize-none"
-                          />
-                        </div>
-                        <button
-                          type="submit"
-                          className="mt-2 py-3 px-6 rounded-full bg-teal-400 text-teal-950 font-space text-sm font-semibold hover:bg-teal-300 transition-all flex items-center justify-center gap-2 shadow-md self-start"
-                        >
-                          Send Message <ArrowUpRight size={16} />
-                        </button>
-                      </form>
-
-
-                    </div>
-                  </section>
 
                   {/* ───────────────── FOOTER (COPYRIGHT Only) ───────────────── */}
                   <footer className="py-12 border-t border-slate-800">
