@@ -23,7 +23,7 @@ Before running the application, make sure you have the following installed on yo
 
 2. **Install Project Dependencies**
    Run the following command to download and install all necessary npm packages (such as React, Framer Motion, Lenis, and Tailwind):
-   ```bash
+   ```bash  
    npm install
    ```
 

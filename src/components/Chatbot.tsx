@@ -12,7 +12,7 @@ const botReplies: { [key: string]: string } = {
   skills: "Samita is skilled in AI/ML (TensorFlow, scikit-learn, OpenCV), FPGA design (Verilog, Vitis HLS, Vivado), Programming (Python, C++, Embedded C), and Core ECE subjects like VLSI & DSP.",
   internships: "She has completed four notable internships: 1) Summer Fellow at IIT Madras (Vitis HLS/FPGA), 2) Centre for Autonomous Systems (CAS) at GITAM (GPS Guided Ground Vehicle), 3) SURE Fellow at IIT Hyderabad (BCZT Ceramics ML modelling), and 4) BSNL (Network Telecom configuration).",
   projects: "Her primary projects include Real-Time Human Motion Classification on ESP32 using TensorFlow Lite Micro, ADXL335 early warning Earthquake Detector, and structural health monitoring for Sustainable Bridges.",
-  contact: "You can reach Samita at +91 7799440419 or email her at samitapotnuru@gmail.com. Her GitHub is samitaraju and LinkedIn handles are linked in the contact section!",
+  contact: "You can reach Samita at +91 7799440419 or email her at samitapotnuru@gmail.com. Her GitHub, LinkedIn, and Instagram (@hey_samita) are linked on her profile!",
 };
 
 export const Chatbot: React.FC = () => {
@@ -38,7 +38,7 @@ export const Chatbot: React.FC = () => {
         reply = botReplies.internships;
       } else if (lowerText.includes('project') || lowerText.includes('hardware') || lowerText.includes('esp32')) {
         reply = botReplies.projects;
-      } else if (lowerText.includes('contact') || lowerText.includes('email') || lowerText.includes('phone') || lowerText.includes('hire')) {
+      } else if (lowerText.includes('contact') || lowerText.includes('email') || lowerText.includes('phone') || lowerText.includes('hire') || lowerText.includes('social') || lowerText.includes('instagram') || lowerText.includes('linkedin') || lowerText.includes('github')) {
         reply = botReplies.contact;
       }
       setMessages([...newMessages, { sender: 'bot' as const, text: reply }]);

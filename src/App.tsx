@@ -211,7 +211,7 @@ function App() {
 
                     {/* Instagram */}
                     <a
-                      href="https://instagram.com"
+                      href="https://www.instagram.com/hey_samita/"
                       target="_blank"
                       rel="noopener noreferrer"
                       aria-label="Instagram"
@@ -1074,7 +1074,6 @@ function App() {
                       </h3>
                       <ul className="text-base md:text-lg leading-relaxed text-slate-400 list-disc pl-5 space-y-2 text-justify">
                         <li>Ranked among the top 20% academically.</li>
-                        <li>Received 2 times Merit Scholarship.</li>
                       </ul>
                     </div>
                   </section>
